@@ -219,6 +219,6 @@ jobs:
           ant -emacs tests
         name: Run tests
       - name: Try publish
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: -Pcleanroom -PoutlandsUsername=${{ secrets.OUTLANDS_USER }} -PoutlandsPassword=${{ secrets.OUTLANDS_PWD }} publish
+        run: |
+          chmod +x ./gradlew
+          ./gradlew -Pcleanroom -PoutlandsUsername=${{ secrets.OUTLANDS_USER }} -PoutlandsPassword=${{ secrets.OUTLANDS_PWD }} publish
