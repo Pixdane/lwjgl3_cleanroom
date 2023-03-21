@@ -33,7 +33,6 @@ jobs:
           fetch-depth: 3
       - run: |
           sudo apt-get update
-          sudo apt-get upgrade
           sudo apt-get -yq install ${{matrix.PACKAGES}}
         name: Install dependencies
       - run: ${PWD}/refactor/Linux.sh
