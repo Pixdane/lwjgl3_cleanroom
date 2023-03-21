@@ -32,6 +32,15 @@ data class Deployment(
     val password: String? = null
 )
 
+fun versionBanner(): String {
+    val os = org.apache.commons.io.output.ByteArrayOutputStream()
+    project.exec {
+        commandLine = "git describe --long".split(" ")
+        standardOutput = os
+    }
+    return String(os.toByteArray()).trim()
+}
+
 val deployment = when {
     hasProperty("release") -> Deployment(
         type = BuildType.RELEASE,
@@ -46,6 +55,15 @@ val deployment = when {
             repo = uri("https://oss.sonatype.org/content/repositories/snapshots/"),
             user = sonatypeUsername,
             password = sonatypePassword
+        )
+    }
+    hasProperty("cleanroom") -> {
+        version = versionBanner() + "-CLEANROOM"
+        Deployment(
+            type = BuildType.SNAPSHOT,
+            repo = uri("https://outlands.top/maven/snapshots/"),
+            user = outlandsUsername,
+            password = outlandsPassword
         )
     }
     else -> {
