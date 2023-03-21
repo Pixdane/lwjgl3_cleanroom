@@ -214,7 +214,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-          path: bin/lib/
+          path: bin/libs/native
       - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.362-9/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
         name: Try Releasing
       - run: |
