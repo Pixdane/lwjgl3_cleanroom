@@ -61,7 +61,7 @@ val deployment = when {
         version = versionBanner() + "-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
-            repo = uri("https://maven.outlands.top/snapshots/"),
+            repo = uri("https://maven.outlands.top/#/snapshots/"),
             user = outlandsUsername,
             password = outlandsPassword
         )
