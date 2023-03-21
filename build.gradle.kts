@@ -3,6 +3,8 @@
  * License terms: https://www.lwjgl.org/license
  */
 import java.net.*
+import kotlinx.cinterop.*
+import platform.posix.*
 
 plugins {
     `java-platform`
@@ -32,13 +34,29 @@ data class Deployment(
     val password: String? = null
 )
 
-fun versionBanner(): String {
-    val os = org.apache.commons.io.output.ByteArrayOutputStream()
-    project.exec {
-        commandLine = "git describe --long".split(" ")
-        standardOutput = os
+
+fun executeCommand(
+    command: String,
+    trim: Boolean = true,
+    redirectStderr: Boolean = true
+): String {
+    val commandToExecute = if (redirectStderr) "$command 2>&1" else command
+    val fp = popen(commandToExecute, "r") ?: error("Failed to run command: $command")
+
+    val stdout = buildString {
+        val buffer = ByteArray(4096)
+        while (true) {
+            val input = fgets(buffer.refTo(0), buffer.size, fp) ?: break
+            append(input.toKString())
+        }
     }
-    return String(os.toByteArray()).trim()
+
+    val status = pclose(fp)
+    if (status != 0) {
+        error("Command `$command` failed with status $status${if (redirectStderr) ": $stdout" else ""}")
+    }
+
+    return if (trim) stdout.trim() else stdout
 }
 
 val deployment = when {
@@ -58,12 +76,12 @@ val deployment = when {
         )
     }
     hasProperty("cleanroom") -> {
-        version = versionBanner() + "-CLEANROOM"
+        version = executeCommand("git describe") + "-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
             repo = uri("https://maven.outlands.top/#/snapshots/"),
-            user = outlandsUsername,
-            password = outlandsPassword
+            user = sonatypeUsername,
+            password = sonatypePassword
         )
     }
     else -> {

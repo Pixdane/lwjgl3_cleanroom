@@ -220,4 +220,4 @@ jobs:
       - name: Try publish
         run: |
           chmod +x ./gradlew
-          ./gradlew -Pcleanroom -PoutlandsUsername=${{ secrets.OUTLANDS_USER }} -PoutlandsPassword=${{ secrets.OUTLANDS_PWD }} publish
+          ./gradlew -Pcleanroom -PsonatypeUsername=${{ secrets.OUTLANDS_USER }} -PsonatypePassword=${{ secrets.OUTLANDS_PWD }} publish
