@@ -3,8 +3,8 @@
  * License terms: https://www.lwjgl.org/license
  */
 import java.net.*
-import kotlinx.cinterop.*
-import platform.posix.*
+
+
 
 plugins {
     `java-platform`
@@ -35,29 +35,6 @@ data class Deployment(
 )
 
 
-fun executeCommand(
-    command: String,
-    trim: Boolean = true,
-    redirectStderr: Boolean = true
-): String {
-    val commandToExecute = if (redirectStderr) "$command 2>&1" else command
-    val fp = popen(commandToExecute, "r") ?: error("Failed to run command: $command")
-
-    val stdout = buildString {
-        val buffer = ByteArray(4096)
-        while (true) {
-            val input = fgets(buffer.refTo(0), buffer.size, fp) ?: break
-            append(input.toKString())
-        }
-    }
-
-    val status = pclose(fp)
-    if (status != 0) {
-        error("Command `$command` failed with status $status${if (redirectStderr) ": $stdout" else ""}")
-    }
-
-    return if (trim) stdout.trim() else stdout
-}
 
 val deployment = when {
     hasProperty("release") -> Deployment(
@@ -76,10 +53,10 @@ val deployment = when {
         )
     }
     hasProperty("cleanroom") -> {
-        version = executeCommand("git describe") + "-CLEANROOM"
+        version = "3.3.2-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
-            repo = uri("https://maven.outlands.top/#/snapshots/"),
+            repo = uri("https://maven.outlands.top/snapshots/"),
             user = sonatypeUsername,
             password = sonatypePassword
         )
