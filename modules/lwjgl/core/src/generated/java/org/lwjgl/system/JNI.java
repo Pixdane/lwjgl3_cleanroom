@@ -171,7 +171,6 @@ public final class JNI {
     public static native int invokePPPNNI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native int invokePPPPNI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native int invokePPPPPI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
-    public static native int invokePJJJPI(long param0, long param1, long param2, long param3, int param4, long param5, long __functionAddress);
     public static native int invokePJPPNI(long param0, int param1, long param2, long param3, long param4, long param5, long __functionAddress);
     public static native int invokePPNPPI(long param0, int param1, long param2, long param3, long param4, long param5, long __functionAddress);
     public static native int invokePPNPPI(long param0, long param1, long param2, int param3, long param4, long param5, long __functionAddress);
@@ -189,6 +188,7 @@ public final class JNI {
     public static native int invokePPPPPI(long param0, long param1, long param2, int param3, long param4, int param5, int param6, long param7, long __functionAddress);
     public static native int invokePPPPPI(long param0, long param1, long param2, int param3, int param4, int param5, float param6, long param7, long param8, long __functionAddress);
     public static native int invokePPPPPPI(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
+    public static native int invokePJJJJPI(long param0, long param1, long param2, long param3, long param4, int param5, long param6, long __functionAddress);
     public static native int invokePPNPPPI(long param0, int param1, long param2, long param3, long param4, long param5, long param6, long __functionAddress);
     public static native int invokePPPPPNI(long param0, int param1, long param2, long param3, long param4, long param5, long param6, long __functionAddress);
     public static native int invokePPPPPPI(long param0, int param1, long param2, long param3, long param4, long param5, long param6, long __functionAddress);
@@ -285,12 +285,14 @@ public final class JNI {
     public static native long invokePJPPP(long param0, long param1, int param2, long param3, long param4, int param5, long __functionAddress);
     public static native long invokePPPJP(long param0, long param1, long param2, long param3, int param4, int param5, long __functionAddress);
     public static native long invokePPPPP(long param0, long param1, int param2, long param3, int param4, long param5, long __functionAddress);
+    public static native long invokePPPPP(long param0, long param1, long param2, int param3, long param4, int param5, long __functionAddress);
     public static native long invokePPPPP(long param0, long param1, long param2, int param3, int param4, int param5, long param6, long __functionAddress);
     public static native long invokePPPPP(long param0, long param1, long param2, int param3, long param4, int param5, int param6, long __functionAddress);
     public static native long invokePPPPP(long param0, long param1, long param2, long param3, int param4, int param5, int param6, long __functionAddress);
     public static native long invokePPPPP(int param0, int param1, int param2, long param3, long param4, long param5, int param6, long param7, long __functionAddress);
     public static native long invokePJPJPP(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native long invokePNNNPP(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
+    public static native long invokePPBPPP(long param0, long param1, byte param2, long param3, long param4, long __functionAddress);
     public static native long invokePPPPPP(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native long invokeCCCUJP(short param0, short param1, short param2, byte param3, int param4, long param5, long __functionAddress);
     public static native long invokePPPPNP(long param0, long param1, int param2, long param3, long param4, long param5, long __functionAddress);
@@ -299,6 +301,7 @@ public final class JNI {
     public static native long invokePPPPPP(long param0, long param1, long param2, long param3, long param4, int param5, long __functionAddress);
     public static native long invokePPJPPP(long param0, long param1, long param2, int param3, int param4, long param5, long param6, long __functionAddress);
     public static native long invokePPPPPP(long param0, long param1, long param2, int param3, long param4, int param5, long param6, long __functionAddress);
+    public static native long invokePPPPPP(long param0, long param1, long param2, long param3, int param4, long param5, int param6, long __functionAddress);
     public static native long invokePPPPPP(long param0, long param1, long param2, long param3, long param4, int param5, int param6, int param7, int param8, long __functionAddress);
     public static native long invokePPJJPPP(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
     public static native long invokePPPPPPP(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
@@ -312,6 +315,7 @@ public final class JNI {
     public static native long invokePPPPPPP(long param0, long param1, long param2, long param3, int param4, long param5, int param6, long param7, int param8, int param9, long __functionAddress);
     public static native long invokePPPPPPP(long param0, long param1, long param2, long param3, long param4, int param5, long param6, int param7, int param8, int param9, long __functionAddress);
     public static native long invokePPPPPPPP(long param0, long param1, long param2, long param3, int param4, long param5, long param6, long param7, long __functionAddress);
+    public static native long invokePPPPPPPP(long param0, long param1, long param2, long param3, int param4, long param5, long param6, long param7, int param8, long __functionAddress);
     public static native long invokePPPPPPPP(long param0, long param1, long param2, long param3, long param4, int param5, long param6, int param7, long param8, int param9, long __functionAddress);
     public static native long invokePPPPPPPPP(long param0, long param1, long param2, long param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native long invokePPPPPPPPP(long param0, long param1, long param2, long param3, long param4, long param5, long param6, int param7, long param8, long __functionAddress);
@@ -501,6 +505,7 @@ public final class JNI {
     public static native void invokePCCCCCUV(long param0, short param1, short param2, short param3, short param4, short param5, byte param6, long __functionAddress);
     public static native void invokePPPPPPPV(long param0, long param1, long param2, long param3, long param4, long param5, long param6, long __functionAddress);
     public static native void invokePCCCCCUV(long param0, short param1, short param2, short param3, short param4, short param5, int param6, byte param7, long __functionAddress);
+    public static native void invokePPPPPPPV(long param0, int param1, long param2, long param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native void invokeCCCCCCUV(short param0, short param1, short param2, short param3, short param4, int param5, short param6, int param7, byte param8, long __functionAddress);
     public static native void invokePCCCCCCUV(long param0, short param1, short param2, short param3, short param4, short param5, int param6, short param7, int param8, byte param9, long __functionAddress);
     public static native void invokeCCUCCCCPCV(short param0, short param1, byte param2, short param3, short param4, short param5, short param6, long param7, short param8, long __functionAddress);
@@ -560,6 +565,7 @@ public final class JNI {
     public static native int callJI(int param0, long param1, int param2, int param3, long __functionAddress);
     public static native int callJI(long param0, float param1, float param2, float param3, long __functionAddress);
     public static native int callPI(int param0, int param1, int param2, long param3, long __functionAddress);
+    public static native int callPI(int param0, int param1, long param2, int param3, long __functionAddress);
     public static native int callPI(int param0, long param1, int param2, int param3, long __functionAddress);
     public static native int callPI(long param0, float param1, float param2, float param3, long __functionAddress);
     public static native int callPI(long param0, int param1, float param2, float param3, long __functionAddress);
@@ -690,6 +696,8 @@ public final class JNI {
     public static native int callJPPPI(long param0, long param1, int param2, long param3, long param4, long __functionAddress);
     public static native int callPJJJI(long param0, int param1, long param2, long param3, long param4, long __functionAddress);
     public static native int callPJPPI(long param0, long param1, int param2, long param3, long param4, long __functionAddress);
+    public static native int callPPJPI(long param0, long param1, int param2, long param3, long param4, long __functionAddress);
+    public static native int callPPPJI(long param0, long param1, long param2, int param3, long param4, long __functionAddress);
     public static native int callPPPPI(long param0, int param1, long param2, long param3, long param4, long __functionAddress);
     public static native int callPPPPI(long param0, long param1, int param2, long param3, long param4, long __functionAddress);
     public static native int callPPPPI(long param0, long param1, long param2, int param3, long param4, long __functionAddress);
@@ -711,6 +719,7 @@ public final class JNI {
     public static native int callJPPJI(long param0, int param1, int param2, int param3, long param4, int param5, long param6, boolean param7, long param8, long __functionAddress);
     public static native int callPPPPI(long param0, int param1, int param2, int param3, int param4, int param5, int param6, int param7, long param8, long param9, long param10, long __functionAddress);
     public static native int callPPPPI(int param0, long param1, long param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9, int param10, int param11, int param12, int param13, int param14, int param15, int param16, int param17, int param18, int param19, int param20, long param21, long param22, long __functionAddress);
+    public static native int callJPPPJI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native int callPJJPPI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native int callPJPPPI(long param0, long param1, long param2, long param3, long param4, long __functionAddress);
     public static native int callPPCPPI(long param0, long param1, short param2, long param3, long param4, long __functionAddress);
@@ -737,6 +746,7 @@ public final class JNI {
     public static native int callJPPPPI(int param0, int param1, long param2, long param3, int param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPJPPJI(long param0, long param1, int param2, int param3, long param4, long param5, long param6, int param7, long __functionAddress);
     public static native int callPPPPPI(long param0, int param1, long param2, int param3, long param4, int param5, long param6, long param7, long __functionAddress);
+    public static native int callJPJPPJI(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
     public static native int callPJJJJPI(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
     public static native int callPPCPPPI(long param0, long param1, short param2, long param3, long param4, long param5, long __functionAddress);
     public static native int callPPPPJPI(long param0, long param1, long param2, long param3, long param4, long param5, long __functionAddress);
@@ -750,6 +760,8 @@ public final class JNI {
     public static native int callPPPPPPI(int param0, int param1, long param2, long param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPPPPPPI(long param0, int param1, long param2, int param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPPPPPPI(long param0, int param1, long param2, long param3, long param4, int param5, long param6, long param7, long __functionAddress);
+    public static native int callPPPPPPI(long param0, long param1, long param2, long param3, int param4, long param5, long param6, int param7, long __functionAddress);
+    public static native int callPPPPPPI(long param0, int param1, int param2, long param3, long param4, long param5, long param6, long param7, int param8, int param9, int param10, int param11, long __functionAddress);
     public static native int callPPPPPPPI(long param0, long param1, int param2, long param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPPPPPPPI(long param0, long param1, long param2, long param3, int param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPPPPPPPI(long param0, long param1, long param2, long param3, long param4, int param5, long param6, long param7, long __functionAddress);
@@ -758,6 +770,7 @@ public final class JNI {
     public static native int callPPPPPPPI(long param0, int param1, long param2, long param3, int param4, long param5, long param6, long param7, long param8, long __functionAddress);
     public static native int callPPPPPPPI(long param0, long param1, int param2, long param3, long param4, long param5, int param6, long param7, long param8, long __functionAddress);
     public static native int callPPPPPPPI(long param0, long param1, long param2, int param3, long param4, long param5, int param6, long param7, long param8, long __functionAddress);
+    public static native int callPPPPPPPI(long param0, int param1, int param2, long param3, long param4, long param5, long param6, long param7, int param8, int param9, long param10, int param11, int param12, int param13, int param14, long __functionAddress);
     public static native int callPPPPPJPPI(long param0, long param1, long param2, long param3, long param4, long param5, long param6, long param7, long __functionAddress);
     public static native int callPPPPPPPPI(long param0, long param1, long param2, long param3, long param4, long param5, int param6, long param7, long param8, long __functionAddress);
     public static native int callPPPPPPPPI(long param0, long param1, long param2, long param3, int param4, long param5, long param6, int param7, long param8, long param9, long __functionAddress);
