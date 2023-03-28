@@ -227,10 +227,4 @@ jobs:
         with:
           path: |
             bin/RELEASE/
-        name: lwjgl-cleanroom
-      - name: Try publish
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publish
-      - name: Find maven
-        run: ls ${PWD} -al
+        name: Upload jars

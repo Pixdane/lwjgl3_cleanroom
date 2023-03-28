@@ -13,6 +13,7 @@ plugins {
 }
 
 val lwjglVersion: String by project
+val buildnumber: String by project
 val sonatypeUsername: String by project
 val sonatypePassword: String by project
 
@@ -53,7 +54,7 @@ val deployment = when {
         )
     }
     hasProperty("cleanroom") -> {
-        version = "3.3.2-CLEANROOM"
+        version = "3.3.2-$buildnumber-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
             repo = uri("https://repo.cleanroommc.com/snapshots"),
