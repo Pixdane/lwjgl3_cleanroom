@@ -209,6 +209,10 @@ jobs:
         with:
           name: artifact
           path: bin/libs/native
+      - name: Download custom glfw lib
+        run: |
+          wget https://github.com/CleanroomMC/glfw/releases/download/3.4.1/artifact.zip
+          unzip artifact.zip bin/libs/native/
       - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.362-9/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
         name: Try Releasing
       - run: |
