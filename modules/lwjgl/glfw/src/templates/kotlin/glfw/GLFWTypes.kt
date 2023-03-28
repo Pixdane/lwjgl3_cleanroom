@@ -687,7 +687,7 @@ val GLFWpreeditcandidatefun = Module.GLFW.callback {
         int("candidates_count", "Candidates count."),
         int("selected_index", "Index of selected candidate."),
         int("page_start", "Start index of candidate currently displayed."),
-        int("page_size", "Count of candidates currently displayed.")
+        int("page_size", "Count of candidates currently displayed."),
 
         nativeType = "GLFWpreeditcandidatefun"
     ) {
