@@ -43,7 +43,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         This is incremented when a bug fix release is made that does not contain any API changes.
         """,
 
-        "VERSION_REVISION".."0"
+        "VERSION_REVISION".."1"
     )
 
     IntConstant(
@@ -567,7 +567,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "STICKY_KEYS"..0x00033002,
         "STICKY_MOUSE_BUTTONS"..0x00033003,
         "LOCK_KEY_MODS"..0x00033004,
-        "RAW_MOUSE_MOTION"..0x00033005
+        "RAW_MOUSE_MOTION"..0x00033005,
+        "IME"..0x00033006
     ).javaDocLinks
 
     IntConstant(
@@ -3042,6 +3043,87 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         since = "version 3.1"
     )
 
+    void(
+        "GetPreeditCursorRectangle",
+        """
+        Retrieves the area of the preedit text cursor.
+
+        This area is used to decide the position of the candidate window.
+        The cursor position is relative to the window.
+        
+        This function must only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window to set the text cursor for"),
+        Check(1)..nullable..int.p("x", "The preedit text cursor x position (relative position from window coordinates)."),
+        Check(1)..nullable..int.p("y", "The preedit text cursor y position (relative position from window coordinates)."),
+        Check(1)..nullable..int.p("w", "The preedit text cursor width."),
+        Check(1)..nullable..int.p("h", "The preedit text cursor height."),
+
+        since = "version 3.4.1"
+    )
+    
+    void(
+        "SetPreeditCursorRectangle",
+        """
+        Sets the area of the preedit text cursor.
+
+        This area is used to decide the position of the candidate window.
+        The cursor position is relative to the window.
+        
+        This function must only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window to set the text cursor for"),
+        int("x", "The preedit text cursor x position (relative position from window coordinates)."),
+        int("y", "The preedit text cursor y position (relative position from window coordinates)."),
+        int("w", "The preedit text cursor width."),
+        int("h", "The preedit text cursor height."),
+
+        since = "version 3.4.1"
+    )
+    
+    void(
+        "ResetPreeditText",
+        """
+        Resets IME input status.
+
+        This function resets IME's preedit text.
+        
+        On x11, since over-the-spot style is used by default, you don't need to use this function.
+        On wayland, this function is currently not supported.
+        
+        This function must only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window."),
+
+        since = "version 3.4.1"
+    )
+    
+    unsigned_int.p(
+        "GetPreeditCandidate",
+        """
+        Returns the preedit candidate.
+
+        This function returns the text and the text-count of the preedit candidate.
+        
+        By default, the IME manages the preedit candidates, so there is no need to use this function.
+        
+        @macos @x11 @wayland Don't support this function.
+        
+        This function must only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window."),
+        int("index", "The index of the candidate."),
+        Check(1)..nullable..int.p("textCount", "The text-count of the candidate."),
+
+
+        returnDoc = "The text of the candidate as Unicode code points.",
+        since = "version 3.4.1"
+    )
+    
     GLFWkeyfun(
         "SetKeyCallback",
         """
@@ -3113,7 +3195,71 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         returnDoc = "the previously set callback, or #NULL if no callback was set",
         since = "version 3.1"
     )
+    
+    GLFWpreeditfun(
+        "SetPreeditCallback",
+        """
+        This function sets the preedit callback of the specified
+        window, which is called when an IME is processing text before committed.
 
+        Callback receives relative position of input cursor inside preedit text and
+        attributed text blocks.  This callback is used for on-the-spot text editing
+        with IME.
+
+        @x11 Since over-the-spot style is used by default, you don't need to use this function.
+        
+        This function must only be called from the main thread.
+
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWpreeditfun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set",
+        since = "version 3.4.1"
+    )
+    
+    GLFWimestatusfun(
+        "SetIMEStatusCallback",
+        """
+        This function sets the IME status callback of the specified window, which is called when an IME is switched on and off.
+
+        @x11 @wayland Don't support this function.  The callback is not called.
+        
+        This function must only be called from the main thread.
+
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWimestatusfun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set",
+        since = "version 3.4.1"
+    )
+    
+    GLFWpreeditcandidatefun(
+        "SetPreeditCandidateCallback",
+        """
+        This function sets the preedit candidate callback of the specified
+        window, which is called when the candidates are updated and can be used
+        to display them by the application side.
+
+        By default, this callback is not called because the IME displays the
+        candidates and there is nothing to do on the application side.  
+ 
+        @macos @x11 @wayland Don't support this function.  The callback is not called.
+        
+        This function must only be called from the main thread.
+
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWpreeditcandidatefun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set",
+        since = "version 3.4.1"
+    )
+    
     GLFWmousebuttonfun(
         "SetMouseButtonCallback",
         """
