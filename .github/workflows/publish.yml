@@ -224,4 +224,4 @@ jobs:
       - name: Try publish
         run: |
           chmod +x ./gradlew
-          ./gradlew -Pcleanroom -Pbuildnumber=${{github.run_id}} -PsonatypeUsername=${{ secrets.CLEANROOM_USER }} -PsonatypePassword="${{ secrets.CLEANROOM_PWD }}" publish
+          ./gradlew -Pcleanroom -Pbuildnumber=${{github.run_number}} -PsonatypeUsername=${{ secrets.CLEANROOM_USER }} -PsonatypePassword="${{ secrets.CLEANROOM_PWD }}" publish
