@@ -120,16 +120,9 @@ public class GLFW {
             CreateStandardCursor          = apiGetFunctionAddress(GLFW, "glfwCreateStandardCursor"),
             DestroyCursor                 = apiGetFunctionAddress(GLFW, "glfwDestroyCursor"),
             SetCursor                     = apiGetFunctionAddress(GLFW, "glfwSetCursor"),
-            GetPreeditCursorRectangle     = apiGetFunctionAddress(GLFW, "glfwGetPreeditCursorRectangle"),
-            SetPreeditCursorRectangle     = apiGetFunctionAddress(GLFW, "glfwSetPreeditCursorRectangle"),
-            ResetPreeditText              = apiGetFunctionAddress(GLFW, "glfwResetPreeditText"),
-            GetPreeditCandidate           = apiGetFunctionAddress(GLFW, "glfwGetPreeditCandidate"),
             SetKeyCallback                = apiGetFunctionAddress(GLFW, "glfwSetKeyCallback"),
             SetCharCallback               = apiGetFunctionAddress(GLFW, "glfwSetCharCallback"),
             SetCharModsCallback           = apiGetFunctionAddress(GLFW, "glfwSetCharModsCallback"),
-            SetPreeditCallback            = apiGetFunctionAddress(GLFW, "glfwSetPreeditCallback"),
-            SetIMEStatusCallback          = apiGetFunctionAddress(GLFW, "glfwSetIMEStatusCallback"),
-            SetPreeditCandidateCallback   = apiGetFunctionAddress(GLFW, "glfwSetPreeditCandidateCallback"),
             SetMouseButtonCallback        = apiGetFunctionAddress(GLFW, "glfwSetMouseButtonCallback"),
             SetCursorPosCallback          = apiGetFunctionAddress(GLFW, "glfwSetCursorPosCallback"),
             SetCursorEnterCallback        = apiGetFunctionAddress(GLFW, "glfwSetCursorEnterCallback"),
@@ -187,7 +180,7 @@ public class GLFW {
      * 
      * <p>This is incremented when a bug fix release is made that does not contain any API changes.</p>
      */
-    public static final int GLFW_VERSION_REVISION = 1;
+    public static final int GLFW_VERSION_REVISION = 0;
 
     /** Boolean values. */
     public static final int
@@ -662,8 +655,7 @@ public class GLFW {
         GLFW_STICKY_KEYS          = 0x33002,
         GLFW_STICKY_MOUSE_BUTTONS = 0x33003,
         GLFW_LOCK_KEY_MODS        = 0x33004,
-        GLFW_RAW_MOUSE_MOTION     = 0x33005,
-        GLFW_IME                  = 0x33006;
+        GLFW_RAW_MOUSE_MOTION     = 0x33005;
 
     /** Cursor state. */
     public static final int
@@ -3531,7 +3523,7 @@ public class GLFW {
      * <p>This function must only be called from the main thread.</p>
      *
      * @param window the window to query
-     * @param mode   the input mode whose value to return. One of:<br><table><tr><td>{@link #GLFW_CURSOR CURSOR}</td><td>{@link #GLFW_STICKY_KEYS STICKY_KEYS}</td><td>{@link #GLFW_STICKY_MOUSE_BUTTONS STICKY_MOUSE_BUTTONS}</td><td>{@link #GLFW_LOCK_KEY_MODS LOCK_KEY_MODS}</td><td>{@link #GLFW_RAW_MOUSE_MOTION RAW_MOUSE_MOTION}</td><td>{@link #GLFW_IME IME}</td></tr></table>
+     * @param mode   the input mode whose value to return. One of:<br><table><tr><td>{@link #GLFW_CURSOR CURSOR}</td><td>{@link #GLFW_STICKY_KEYS STICKY_KEYS}</td><td>{@link #GLFW_STICKY_MOUSE_BUTTONS STICKY_MOUSE_BUTTONS}</td><td>{@link #GLFW_LOCK_KEY_MODS LOCK_KEY_MODS}</td><td>{@link #GLFW_RAW_MOUSE_MOTION RAW_MOUSE_MOTION}</td></tr></table>
      *
      * @return the input mode value
      *
@@ -3977,139 +3969,6 @@ public class GLFW {
         invokePPV(window, cursor, __functionAddress);
     }
 
-    // --- [ glfwGetPreeditCursorRectangle ] ---
-
-    /** Unsafe version of: {@link #glfwGetPreeditCursorRectangle GetPreeditCursorRectangle} */
-    public static void nglfwGetPreeditCursorRectangle(long window, long x, long y, long w, long h) {
-        long __functionAddress = Functions.GetPreeditCursorRectangle;
-        if (CHECKS) {
-            check(window);
-        }
-        invokePPPPPV(window, x, y, w, h, __functionAddress);
-    }
-
-    /**
-     * Retrieves the area of the preedit text cursor.
-     * 
-     * <p>This area is used to decide the position of the candidate window.
-     * The cursor position is relative to the window.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window to set the text cursor for
-     * @param x      The preedit text cursor x position (relative position from window coordinates).
-     * @param y      The preedit text cursor y position (relative position from window coordinates).
-     * @param w      The preedit text cursor width.
-     * @param h      The preedit text cursor height.
-     *
-     * @since version 3.4.1
-     */
-    public static void glfwGetPreeditCursorRectangle(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("int *") IntBuffer x, @Nullable @NativeType("int *") IntBuffer y, @Nullable @NativeType("int *") IntBuffer w, @Nullable @NativeType("int *") IntBuffer h) {
-        if (CHECKS) {
-            checkSafe(x, 1);
-            checkSafe(y, 1);
-            checkSafe(w, 1);
-            checkSafe(h, 1);
-        }
-        nglfwGetPreeditCursorRectangle(window, memAddressSafe(x), memAddressSafe(y), memAddressSafe(w), memAddressSafe(h));
-    }
-
-    // --- [ glfwSetPreeditCursorRectangle ] ---
-
-    /**
-     * Sets the area of the preedit text cursor.
-     * 
-     * <p>This area is used to decide the position of the candidate window.
-     * The cursor position is relative to the window.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window to set the text cursor for
-     * @param x      The preedit text cursor x position (relative position from window coordinates).
-     * @param y      The preedit text cursor y position (relative position from window coordinates).
-     * @param w      The preedit text cursor width.
-     * @param h      The preedit text cursor height.
-     *
-     * @since version 3.4.1
-     */
-    public static void glfwSetPreeditCursorRectangle(@NativeType("GLFWwindow *") long window, int x, int y, int w, int h) {
-        long __functionAddress = Functions.SetPreeditCursorRectangle;
-        if (CHECKS) {
-            check(window);
-        }
-        invokePV(window, x, y, w, h, __functionAddress);
-    }
-
-    // --- [ glfwResetPreeditText ] ---
-
-    /**
-     * Resets IME input status.
-     * 
-     * <p>This function resets IME's preedit text.</p>
-     * 
-     * <p>On x11, since over-the-spot style is used by default, you don't need to use this function.
-     * On wayland, this function is currently not supported.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window.
-     *
-     * @since version 3.4.1
-     */
-    public static void glfwResetPreeditText(@NativeType("GLFWwindow *") long window) {
-        long __functionAddress = Functions.ResetPreeditText;
-        if (CHECKS) {
-            check(window);
-        }
-        invokePV(window, __functionAddress);
-    }
-
-    // --- [ glfwGetPreeditCandidate ] ---
-
-    /**
-     * Unsafe version of: {@link #glfwGetPreeditCandidate GetPreeditCandidate}
-     *
-     * @param textCount The text-count of the candidate.
-     */
-    public static long nglfwGetPreeditCandidate(long window, int index, long textCount) {
-        long __functionAddress = Functions.GetPreeditCandidate;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPP(window, index, textCount, __functionAddress);
-    }
-
-    /**
-     * Returns the preedit candidate.
-     * 
-     * <p>This function returns the text and the text-count of the preedit candidate.</p>
-     * 
-     * <p>By default, the IME manages the preedit candidates, so there is no need to use this function.</p>
-     * 
-     * <p>@macos @x11 @wayland Don't support this function.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window.
-     * @param index  The index of the candidate.
-     *
-     * @return The text of the candidate as Unicode code points.
-     *
-     * @since version 3.4.1
-     */
-    @Nullable
-    @NativeType("unsigned int *")
-    public static IntBuffer glfwGetPreeditCandidate(@NativeType("GLFWwindow *") long window, int index) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        IntBuffer textCount = stack.callocInt(1);
-        try {
-            long __result = nglfwGetPreeditCandidate(window, index, memAddress(textCount));
-            return memIntBufferSafe(__result, textCount.get(0));
-        } finally {
-            stack.setPointer(stackPointer);
-        }
-    }
-
     // --- [ glfwSetKeyCallback ] ---
 
     /** Unsafe version of: {@link #glfwSetKeyCallback SetKeyCallback} */
@@ -4222,109 +4081,6 @@ public class GLFW {
     @NativeType("GLFWcharmodsfun")
     public static GLFWCharModsCallback glfwSetCharModsCallback(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("GLFWcharmodsfun") GLFWCharModsCallbackI cbfun) {
         return GLFWCharModsCallback.createSafe(nglfwSetCharModsCallback(window, memAddressSafe(cbfun)));
-    }
-
-    // --- [ glfwSetPreeditCallback ] ---
-
-    /** Unsafe version of: {@link #glfwSetPreeditCallback SetPreeditCallback} */
-    public static long nglfwSetPreeditCallback(long window, long cbfun) {
-        long __functionAddress = Functions.SetPreeditCallback;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPP(window, cbfun, __functionAddress);
-    }
-
-    /**
-     * This function sets the preedit callback of the specified
-     * window, which is called when an IME is processing text before committed.
-     * 
-     * <p>Callback receives relative position of input cursor inside preedit text and
-     * attributed text blocks.  This callback is used for on-the-spot text editing
-     * with IME.</p>
-     * 
-     * <p>@x11 Since over-the-spot style is used by default, you don't need to use this function.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window whose callback to set
-     * @param cbfun  the new callback or {@code NULL} to remove the currently set callback
-     *
-     * @return the previously set callback, or {@code NULL} if no callback was set
-     *
-     * @since version 3.4.1
-     */
-    @Nullable
-    @NativeType("GLFWpreeditfun")
-    public static GLFWPreeditCallback glfwSetPreeditCallback(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("GLFWpreeditfun") GLFWPreeditCallbackI cbfun) {
-        return GLFWPreeditCallback.createSafe(nglfwSetPreeditCallback(window, memAddressSafe(cbfun)));
-    }
-
-    // --- [ glfwSetIMEStatusCallback ] ---
-
-    /** Unsafe version of: {@link #glfwSetIMEStatusCallback SetIMEStatusCallback} */
-    public static long nglfwSetIMEStatusCallback(long window, long cbfun) {
-        long __functionAddress = Functions.SetIMEStatusCallback;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPP(window, cbfun, __functionAddress);
-    }
-
-    /**
-     * This function sets the IME status callback of the specified window, which is called when an IME is switched on and off.
-     * 
-     * <p>@x11 @wayland Don't support this function.  The callback is not called.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window whose callback to set
-     * @param cbfun  the new callback or {@code NULL} to remove the currently set callback
-     *
-     * @return the previously set callback, or {@code NULL} if no callback was set
-     *
-     * @since version 3.4.1
-     */
-    @Nullable
-    @NativeType("GLFWimestatusfun")
-    public static GLFWIMEStatusCallback glfwSetIMEStatusCallback(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("GLFWimestatusfun") GLFWIMEStatusCallbackI cbfun) {
-        return GLFWIMEStatusCallback.createSafe(nglfwSetIMEStatusCallback(window, memAddressSafe(cbfun)));
-    }
-
-    // --- [ glfwSetPreeditCandidateCallback ] ---
-
-    /** Unsafe version of: {@link #glfwSetPreeditCandidateCallback SetPreeditCandidateCallback} */
-    public static long nglfwSetPreeditCandidateCallback(long window, long cbfun) {
-        long __functionAddress = Functions.SetPreeditCandidateCallback;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPP(window, cbfun, __functionAddress);
-    }
-
-    /**
-     * This function sets the preedit candidate callback of the specified
-     * window, which is called when the candidates are updated and can be used
-     * to display them by the application side.
-     * 
-     * <p>By default, this callback is not called because the IME displays the
-     * candidates and there is nothing to do on the application side.</p>
-     * 
-     * <p>@macos @x11 @wayland Don't support this function.  The callback is not called.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param window the window whose callback to set
-     * @param cbfun  the new callback or {@code NULL} to remove the currently set callback
-     *
-     * @return the previously set callback, or {@code NULL} if no callback was set
-     *
-     * @since version 3.4.1
-     */
-    @Nullable
-    @NativeType("GLFWpreeditcandidatefun")
-    public static GLFWPreeditCandidateCallback glfwSetPreeditCandidateCallback(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("GLFWpreeditcandidatefun") GLFWPreeditCandidateCallbackI cbfun) {
-        return GLFWPreeditCandidateCallback.createSafe(nglfwSetPreeditCandidateCallback(window, memAddressSafe(cbfun)));
     }
 
     // --- [ glfwSetMouseButtonCallback ] ---
@@ -5476,19 +5232,6 @@ public class GLFW {
             checkSafe(ypos, 1);
         }
         invokePPPV(window, xpos, ypos, __functionAddress);
-    }
-
-    /** Array version of: {@link #glfwGetPreeditCursorRectangle GetPreeditCursorRectangle} */
-    public static void glfwGetPreeditCursorRectangle(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("int *") int[] x, @Nullable @NativeType("int *") int[] y, @Nullable @NativeType("int *") int[] w, @Nullable @NativeType("int *") int[] h) {
-        long __functionAddress = Functions.GetPreeditCursorRectangle;
-        if (CHECKS) {
-            check(window);
-            checkSafe(x, 1);
-            checkSafe(y, 1);
-            checkSafe(w, 1);
-            checkSafe(h, 1);
-        }
-        invokePPPPPV(window, x, y, w, h, __functionAddress);
     }
 
 }
