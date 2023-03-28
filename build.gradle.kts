@@ -56,7 +56,7 @@ val deployment = when {
     hasProperty("cleanroom") -> {
         version = "3.3.2-$buildnumber-CLEANROOM"
         Deployment(
-            type = BuildType.RELEASE,
+            type = BuildType.SNAPSHOT,
             repo = uri("https://repo.cleanroommc.com/snapshots"),
             user = sonatypeUsername,
             password = sonatypePassword

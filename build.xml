@@ -1453,7 +1453,7 @@
         </condition>
 
         <property name="module.version" value="${build.version}+${build.revision}" if:true="${build.release}"/>
-        <condition property="module.version" value="${build.version.plain}-snapshot+${build.revision}" else="${build.version.plain}-snapshot" unless:true="${build.release}">
+        <condition property="module.version" value="${build.version.plain}+${build.revision}" else="${build.version.plain}" unless:true="${build.release}">
             <isset property="build.revision"/>
         </condition>
 
