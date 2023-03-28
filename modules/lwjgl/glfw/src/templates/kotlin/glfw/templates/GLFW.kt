@@ -3117,7 +3117,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         GLFWwindow.p("window", "the window."),
         int("index", "The index of the candidate."),
-        Check(1)..nullable..int.p("textCount", "The text-count of the candidate."),
+        AutoSizeResult..int.p("textCount", "The text-count of the candidate."),
 
 
         returnDoc = "The text of the candidate as Unicode code points.",
