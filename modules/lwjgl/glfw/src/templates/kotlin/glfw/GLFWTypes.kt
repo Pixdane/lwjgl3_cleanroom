@@ -624,14 +624,14 @@ val GLFWcharmodsfun = Module.GLFW.callback {
 
 val GLFWpreeditfun = Module.GLFW.callback {
     void(
-        "GLFWSetPreeditCallback",
+        "GLFWPreeditCallback",
         "This is the function pointer type for preedit callback functions.",
 
         GLFWwindow.p("window", "the window that received the event"),
         int("preedit_count", "preedit string count"),
         unsigned_int("preedit_string", "preedit string"),
         int("block_count", "Attributed block count."),
-        int("block_sizes", "List of attributed block size"),
+        int.p("block_sizes", "List of attributed block size"),
         int("focused_block", "Focused block index."),
         int("caret", "Caret position."),
 
@@ -655,7 +655,7 @@ val GLFWpreeditfun = Module.GLFW.callback {
 
 val GLFWimestatusfun = Module.GLFW.callback {
     void(
-        "GLFWimestatusfun",
+        "GLFWIMEStatusCallback",
         "The function pointer type for IME status change callbacks.",
 
         GLFWwindow.p("window", "the window that received the event"),
@@ -680,7 +680,7 @@ val GLFWimestatusfun = Module.GLFW.callback {
 
 val GLFWpreeditcandidatefun = Module.GLFW.callback {
     void(
-        "GLFWSetPreeditCallback",
+        "GLFWPreeditCandidateCallback",
         "This is the function pointer type for preedit candidate callback functions.",
 
         GLFWwindow.p("window", "the window that received the event"),
@@ -699,7 +699,7 @@ val GLFWpreeditcandidatefun = Module.GLFW.callback {
         javaImport("static org.lwjgl.glfw.GLFW.*")
         additionalCode = """
     /** See {@link GLFW#glfwSetPreeditCandidateCallback SetPreeditCandidateCallback}. */
-    public GLFWSetPreeditCandidateCallback set(long window) {
+    public GLFWPreeditCandidateCallback set(long window) {
         glfwSetPreeditCandidateCallback(window, this);
         return this;
     }
