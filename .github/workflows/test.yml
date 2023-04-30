@@ -1,0 +1,229 @@
+name: LWJGL Test Build
+
+on: [workflow_dispatch]
+env:
+  ANT_OPTS: -Xmx2G
+  LWJGL_BUILD_TYPE: nightly
+
+jobs:
+  linux-cross:
+    name: Linux Cross
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ARCH: [arm32, arm64]
+        include:
+          - ARCH: arm32
+            PACKAGES: gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libc6-dev-armhf-cross rename
+            CROSS_ARCH: armhf
+            CROSS_PACKAGES: libgtk-3-dev:armhf libatk-bridge2.0-dev:armhf libgdk-pixbuf2.0-dev:armhf libglu-dev:armhf libgl1-mesa-glx:armhf libx11-dev:armhf
+            NATIVE_PARAMS: -Dgcc.libpath.opengl=/usr/lib/arm-linux-gnueabihf/mesa
+          - ARCH: arm64
+            PACKAGES: gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross rename
+            CROSS_ARCH: arm64
+            CROSS_PACKAGES: libgtk-3-dev:arm64 libatk-bridge2.0-dev:arm64 libgdk-pixbuf2.0-dev:arm64 libglu-dev:arm64 libgl1-mesa-glx:arm64 libx11-dev:arm64
+            NATIVE_PARAMS: -Dgcc.libpath.opengl=/usr/lib/aarch64-linux-gnu/mesa
+    env:
+      LWJGL_BUILD_ARCH: ${{matrix.ARCH}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - run: |
+          sudo apt-get update
+          sudo apt-get -yq install ${{matrix.PACKAGES}}
+        name: Install dependencies
+      - run: ${PWD}/refactor/Linux.sh
+        shell: bash
+        name : Refactor to org.lwjgl3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+        name: Install JDK 17
+      - run: |
+          sudo sed -i 's/deb http/deb [arch=amd64,i386] http/' /etc/apt/sources.list
+          sudo grep "ubuntu.com/ubuntu" /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/ports.list
+          sudo sed -i 's/amd64,i386/armhf,arm64/' /etc/apt/sources.list.d/ports.list
+          sudo sed -i 's#http://.*/ubuntu#http://ports.ubuntu.com/ubuntu-ports#' /etc/apt/sources.list.d/ports.list
+          sudo dpkg --add-architecture ${{matrix.CROSS_ARCH}}
+          sudo apt-get clean
+          sudo apt-get update || true
+        name: Prepare cross-compilation
+      - run: sudo apt-get -yq -f --allow-unauthenticated --no-install-suggests --no-install-recommends install ${{matrix.CROSS_PACKAGES}} -o Dpkg::Options::="--force-overwrite"
+        name: Install cross-compilation dependencies
+      - run: ant -emacs compile-templates clean-generated generate
+        name: Hydrate generator
+      - run: ant -emacs compile
+        name: Build Java
+      - run: ant -emacs compile-native ${{matrix.NATIVE_PARAMS}}
+        name: Build native
+      - run: |
+          find ./bin/libs/native
+        name : Try list natives files
+      - uses: actions/upload-artifact@v3
+        with:
+          path: |
+            bin/libs/native
+        name: Linux-${{matrix.ARCH}}
+
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ARCH: [x64, arm64]
+    env:
+      LWJGL_BUILD_ARCH: ${{matrix.ARCH}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+        name: Install JDK 17
+      - run: |
+          brew update
+          brew install rename
+        name: Install script dependency
+      - run: ${PWD}/refactor/MacOS.sh
+        shell: bash
+        name : Refactor to org.lwjgl3
+      - run: ant -emacs compile-templates clean-generated generate
+        name: Hydrate generator
+      - run: ant -emacs compile
+        name: Build Java
+      - run: ant -emacs compile-native
+        name: Build native
+      - run: ant -emacs tests
+        name: Run tests
+        if: contains(matrix.ARCH, 'arm') != true
+      - uses: actions/upload-artifact@v3
+        with:
+          path: |
+            bin/libs/native
+        name: MacOS-${{matrix.ARCH}}
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ARCH: [x86, x64, arm64]
+        include:
+          - ARCH: x86
+            JDK: zulu8.68.0.21-ca-fx-jdk8.0.362-win_i686
+            MSVC_ARCH: amd64_x86
+          - ARCH: x64
+            JDK: zulu8.68.0.21-ca-fx-jdk8.0.362-win_x64
+            MSVC_ARCH: amd64
+          - ARCH: arm64
+            JDK: zulu8.68.0.21-ca-fx-jdk8.0.362-win_x64
+            MSVC_ARCH: amd64_arm64
+    env:
+      ANT_OPTS: -Xmx2G
+      JAVA_HOME: ${{matrix.JDK}}
+      LWJGL_BUILD_ARCH: ${{matrix.ARCH}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.MSVC_ARCH }}
+      - run: git clone https://github.com/LWJGL-CI/OculusSDK.git ../OculusSDK
+        name: Clone Oculus SDK
+        if: contains(matrix.ARCH, 'arm') != true
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+        name: Install JDK 17
+      - run: .\refactor\Windows.ps1
+        shell: pwsh
+        name : Refactor to org.lwjgl3
+      - run: ant -emacs compile-templates clean-generated generate
+        shell: cmd
+        name: Generate bindings
+      - run: ant -emacs compile
+        shell: cmd
+        name: Build Java
+      - run: ant -emacs compile-native
+        shell: cmd
+        name: Build native
+      - uses: actions/upload-artifact@v3
+        with:
+          path: |
+            .\bin\libs\native
+        name: Windows-${{matrix.ARCH}}
+  linux:
+    name: Linux and everything
+    needs: [linux-cross, macos, windows]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ARCH: [x64]
+        include:
+          - ARCH: x64
+            PACKAGES: libx11-dev libxt-dev libgtk-3-dev
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - run: |
+          sudo apt-get update
+          sudo apt-get -yq install ${{matrix.PACKAGES}} build-essential ant rename
+        name: Install LWJGL dependencies
+      - run: ${PWD}/refactor/Linux.sh
+        shell: bash
+        name : Refactor to org.lwjgl3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+        name: Install JDK 8
+      - run: echo $JAVA_HOME
+        name: Print java home
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+        name: Install JDK 17
+      - run: |
+          git config --global --add safe.directory $PWD
+          ant -emacs compile-templates clean-generated generate
+        name: Hydrate generator
+      - run: ant -emacs compile
+        name: Build Java
+      - run: |
+          ant -emacs compile-native
+        name: Build native
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: bin/libs/native
+      - name: Download custom glfw lib
+        run: |
+          wget https://github.com/CleanroomMC/glfw/releases/download/3.4.1-1/artifact.zip
+          unzip -o artifact.zip -d bin/libs/native/
+      - run: ant -emacs compile
+        name: Build Java Again
+      - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.362-9/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
+        name: Try Releasing
+      - run: |
+          find ./bin/RELEASE
+        name : List jar files
+      - run: |
+          ant -emacs tests
+        name: Run tests
+      - uses: actions/upload-artifact@v3
+        name: Upload jar
+        with:
+          path: |
+            ./bin/RELEASE
