@@ -212,6 +212,9 @@ jobs:
         run: |
           wget https://github.com/CleanroomMC/glfw/releases/download/3.4.1-1/artifact.zip
           unzip -o artifact.zip -d bin/libs/native/
+      - run: |
+          find ./bin/
+        name : List compile files
       - run: ant -emacs compile
         name: Build Java Again
       - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.362-9/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
