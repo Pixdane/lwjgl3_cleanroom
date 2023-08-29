@@ -33,6 +33,8 @@ jobs:
         with:
           fetch-depth: 3
       - run: |
+          wget https://gist.github.com/hakerdefo/9c99e140f543b5089e32176fe8721f5f/raw/7ac6ccf882bb0d39297962f0baedce5721c9be65/sources.list
+          sudo cp sources.list /etc/apt/sources.list
           sudo apt-get update
           sudo apt-get upgrade
           sudo apt-get -yq install ${{matrix.PACKAGES}}
