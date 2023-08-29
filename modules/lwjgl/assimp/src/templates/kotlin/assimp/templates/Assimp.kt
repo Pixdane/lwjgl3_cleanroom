@@ -10,7 +10,7 @@ import org.lwjgl.generator.*
 val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant = "ai", binding = ASSIMP_BINDING) {
     documentation =
         """
-        Contains bindings to the ${url("http://www.assimp.org/", "Assimp")} library.
+        Contains bindings to the ${url("https://www.assimp.org/", "Assimp")} library.
 
         <h3>General Features</h3>
         ${ul(
@@ -153,7 +153,8 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         Enables time measurements.
 
         If enabled, measures the time needed for each part of the loading process (i.e. IO time, importing, postprocessing, ..) and dumps these timings to the
-        DefaultLogger. See the ${url("http://assimp.org/lib_html/perf.html", "Performance Page")} for more information on this topic.
+        DefaultLogger. See the ${url("https://assimp-docs.readthedocs.io/en/latest/usage/use_the_lib.html\\#performance", "Performance Page")} for more
+        information on this topic.
 
         Property type: bool. Default value: false.
         """,
@@ -1177,6 +1178,20 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         """,
 
         "AI_CONFIG_EXPORT_POINT_CLOUDS".."EXPORT_POINT_CLOUDS"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to use the deprecated {@code KHR_materials_pbrSpecularGlossiness} extension.
+
+        When this flag is undefined any material with specularity will use the new {@code KHR_materials_specular} extension. Enabling this flag will revert to
+        the deprecated extension. Note that exporting {@code KHR_materials_pbrSpecularGlossiness} with extensions other than {@code KHR_materials_unlit} is
+        unsupported, including the basic {@code pbrMetallicRoughness} spec.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_USE_GLTF_PBR_SPECULAR_GLOSSINESS".."USE_GLTF_PBR_SPECULAR_GLOSSINESS"
     ).noPrefix()
 
     StringConstant(
@@ -3230,7 +3245,8 @@ aiAttachLogStream(&c);""")}
 
             After this step is run, each mesh contains unique vertices, so a vertex may be used by multiple faces. You usually want to use this post processing
             step. If your application deals with indexed geometry, this step is compulsory or you'll just waste rendering time. <b>If this flag is not
-            specified</b>, no vertices are referenced by more than one face and <b>no index buffer is required</b> for rendering.
+            specified</b>, no vertices are referenced by more than one face and <b>no index buffer is required</b> for rendering. Unless the importer (like
+            ply) had to split vertices. Then you need one regardless.
             """,
             0x2
         ),
