@@ -73,7 +73,6 @@ val deployment = when {
 println("${deployment.type.name} BUILD")
 
 enum class Platforms(val classifier: String) {
-    FREEBSD("freebsd"),
     LINUX("linux"),
     LINUX_ARM64("linux-arm64"),
     LINUX_ARM32("linux-arm32"),
@@ -103,7 +102,6 @@ enum class Artifacts(
     BGFX(
         "lwjgl-bgfx", "LWJGL - bgfx bindings",
         "A cross-platform, graphics API agnostic rendering library. It provides a high performance, low level abstraction for common platform graphics APIs like OpenGL, Direct3D and Apple Metal.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86
@@ -152,7 +150,6 @@ enum class Artifacts(
     KTX(
         "lwjgl-ktx", "LWJGL - KTX (Khronos Texture) bindings",
         "A lightweight container for textures for OpenGL®, Vulkan® and other GPU APIs.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_ARM64
@@ -180,7 +177,6 @@ enum class Artifacts(
     MEOW(
         "lwjgl-meow", "LWJGL - Meow hash bindings",
         "An extremely fast non-cryptographic hash.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86, Platforms.WINDOWS_ARM64
@@ -236,7 +232,6 @@ enum class Artifacts(
     OPENXR(
         "lwjgl-openxr", "LWJGL - OpenXR bindings",
         "A royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as XR—platforms and devices.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.WINDOWS, Platforms.WINDOWS_X86, Platforms.WINDOWS_ARM64
     ),
@@ -258,7 +253,6 @@ enum class Artifacts(
     REMOTERY(
         "lwjgl-remotery", "LWJGL - Remotery bindings",
         "A realtime CPU/GPU profiler hosted in a single C file with a viewer that runs in a web browser.",
-        Platforms.FREEBSD,
         Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32,
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86
@@ -281,7 +275,7 @@ enum class Artifacts(
     SSE(
         "lwjgl-sse", "LWJGL - SSE bindings",
         "Simple SSE intrinsics.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
+        Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     STB(
         "lwjgl-stb", "LWJGL - stb bindings",
@@ -301,7 +295,7 @@ enum class Artifacts(
     TOOTLE(
         "lwjgl-tootle", "LWJGL - AMD Tootle bindings",
         "A 3D triangle mesh optimization library that improves on existing mesh preprocessing techniques.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
+        Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     VMA(
         "lwjgl-vma", "LWJGL - Vulkan Memory Allocator bindings",
