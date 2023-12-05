@@ -45,7 +45,7 @@ val deployment = when {
         password = sonatypePassword
     )
     hasProperty("snapshot") -> {
-        version = "$version-SNAPSHOT"
+        version = "$version-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
             repo = uri("https://oss.sonatype.org/content/repositories/snapshots/"),
@@ -54,7 +54,7 @@ val deployment = when {
         )
     }
     hasProperty("cleanroom") -> {
-        version = "3.3.2-$buildnumber-CLEANROOM"
+        version = "3.3.4-$buildnumber-CLEANROOM"
         Deployment(
             type = BuildType.SNAPSHOT,
             repo = uri("https://repo.cleanroommc.com/snapshots"),
