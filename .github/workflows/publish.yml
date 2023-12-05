@@ -211,9 +211,7 @@ jobs:
         with:
           name: artifact
           path: bin/libs/native
-      - run: ls -al /opt/hostedtoolcache/Java_Zulu_jdk/
-        name: ls zulu name just in case
-      - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.392-9/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
+      - run: JAVA8_HOME=/opt/hostedtoolcache/Java_Zulu_jdk/8.0.392-8/x64 LWJGL_BUILD_OFFLINE=true ant -emacs release
         name: Try Releasing
       - run: |
           find ./bin/RELEASE
