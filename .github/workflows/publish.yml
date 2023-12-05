@@ -181,8 +181,12 @@ jobs:
           fetch-depth: 3
       - run: |
           sudo apt-get update
-          sudo apt-get -yq install ${{matrix.PACKAGES}} build-essential ant rename
+          sudo apt-get -yq install ${{matrix.PACKAGES}} build-essential ant rename wget apt
         name: Install LWJGL dependencies
+      - run: wget http://ftp.debian.org/debian/pool/main/a/ant/ant_1.10.14-1_all.deb
+        name: Download latest Ant
+      - run: sudo apt -y install ./ant_1.10.14-1_all.deb
+        name: Install latest Ant
       - run: ${PWD}/refactor/Linux.sh
         shell: bash
         name : Refactor to org.lwjgl3
