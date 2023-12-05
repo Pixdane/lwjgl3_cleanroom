@@ -12,32 +12,6 @@ env:
   S3_PARAMS: --cache-control "public,must-revalidate,proxy-revalidate,max-age=0"
   LWJGL_BUILD_TYPE: nightly
 
-#jobs:
-#  linux:
-#    name: Javadoc
-#    runs-on: ubuntu-18.04
-#    steps:
-#      - uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 3
-#      - run: |
-#          git clone https://github.com/LWJGL-CI/OculusSDK.git ../OculusSDK
-#          curl https://cdn.azul.com/zulu/bin/zulu8.64.0.19-ca-fx-jdk8.0.345-linux_x64.tar.gz --output jdk8.tar.gz
-#          curl https://cdn.azul.com/zulu/bin/zulu19.28.81-ca-jdk19.0.0-linux_x64.tar.gz --output jdk19.tar.gz
-#          mkdir jdk8
-#          mkdir jdk19
-#          tar xf jdk8.tar.gz -C jdk8 --strip-components 1
-#          tar xf jdk19.tar.gz -C jdk19 --strip-components 1
-#        name: Install dependencies
-#      - run: JAVA_HOME=$(pwd)/jdk8 ant -emacs hydrate-kotlinc clean-generated generate
-#        name: Generate bindings
-#      - run: JAVA_HOME=$(pwd)/jdk8 ant -emacs compile
-#        name: Build Java
-#      - run: JAVA8_HOME=$(pwd)/jdk8 JAVA_HOME=$(pwd)/jdk19 ANT_OPTS="$ANT_OPTS -XX:+UseShenandoahGC -Djava.security.manager=allow" ant -emacs javadoc
-#        name: Generate javadoc
-#      - run: aws s3 sync bin/javadoc s3://lwjgl-javadoc/ --delete
-#        name: Upload javadoc to S3
-
 jobs:
   macos:
     name: Javadoc
@@ -49,15 +23,15 @@ jobs:
       - run: |
           git clone https://github.com/LWJGL-CI/OculusSDK.git ../OculusSDK
           mkdir jdk8
-          mkdir jdk20
+          mkdir jdk21
           curl -L https://cdn.azul.com/zulu/bin/zulu8.72.0.17-ca-jdk8.0.382-macosx_x64.tar.gz | tar xz -C jdk8 --strip-components 1
-          curl -L https://cdn.azul.com/zulu/bin/zulu20.32.11_1-ca-jdk20.0.2-macosx_x64.tar.gz | tar xz -C jdk20 --strip-components 1
+          curl -L https://cdn.azul.com/zulu/bin/zulu21.30.15-ca-jdk21.0.1-macosx_x64.tar.gz | tar xz -C jdk21 --strip-components 1
         name: Install dependencies
       - run: JAVA_HOME=$(pwd)/jdk8 ant -emacs hydrate-kotlinc clean-generated generate
         name: Generate bindings
       - run: JAVA_HOME=$(pwd)/jdk8 ant -emacs compile
         name: Build Java
-      - run: JAVA8_HOME=$(pwd)/jdk8 JAVA_HOME=$(pwd)/jdk20 ANT_OPTS="-Djava.security.manager=allow" ant -emacs javadoc
+      - run: JAVA8_HOME=$(pwd)/jdk8 JAVA_HOME=$(pwd)/jdk21 ANT_OPTS="-Djava.security.manager=allow" ant -emacs javadoc
         name: Generate javadoc
       - run: aws s3 sync bin/javadoc s3://lwjgl-javadoc/ --delete
         name: Upload javadoc to S3

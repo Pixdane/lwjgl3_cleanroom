@@ -766,6 +766,15 @@ public class VKCapabilitiesDevice {
         vkCmdCopyMemoryIndirectNV,
         vkCmdCopyMemoryToImageIndirectNV;
 
+    /** Function pointers for NV_cuda_kernel_launch */
+    public final long
+        vkCreateCudaModuleNV,
+        vkGetCudaModuleCacheNV,
+        vkCreateCudaFunctionNV,
+        vkDestroyCudaModuleNV,
+        vkDestroyCudaFunctionNV,
+        vkCmdCudaLaunchKernelNV;
+
     /** Function pointers for NV_device_diagnostic_checkpoints */
     public final long
         vkCmdSetCheckpointNV,
@@ -797,6 +806,14 @@ public class VKCapabilitiesDevice {
     /** Function pointers for NV_fragment_shading_rate_enums */
     public final long
         vkCmdSetFragmentShadingRateEnumNV;
+
+    /** Function pointers for NV_low_latency2 */
+    public final long
+        vkSetLatencySleepModeNV,
+        vkLatencySleepNV,
+        vkSetLatencyMarkerNV,
+        vkGetLatencyTimingsNV,
+        vkQueueNotifyOutOfBandNV;
 
     /** Function pointers for NV_memory_decompression */
     public final long
@@ -922,10 +939,14 @@ public class VKCapabilitiesDevice {
     public final boolean VK_AMD_texture_gather_bias_lod;
     /** When true, {@link AMDXShaderEnqueue} is supported. */
     public final boolean VK_AMDX_shader_enqueue;
+    /** When true, {@link ANDROIDExternalFormatResolve} is supported. */
+    public final boolean VK_ANDROID_external_format_resolve;
     /** When true, {@link ANDROIDExternalMemoryAndroidHardwareBuffer} is supported. */
     public final boolean VK_ANDROID_external_memory_android_hardware_buffer;
     /** When true, {@link ARMRasterizationOrderAttachmentAccess} is supported. */
     public final boolean VK_ARM_rasterization_order_attachment_access;
+    /** When true, {@link ARMSchedulingControls} is supported. */
+    public final boolean VK_ARM_scheduling_controls;
     /** When true, {@link ARMShaderCoreBuiltins} is supported. */
     public final boolean VK_ARM_shader_core_builtins;
     /** When true, {@link ARMShaderCoreProperties} is supported. */
@@ -1002,6 +1023,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_EXT_fragment_density_map2;
     /** When true, {@link EXTFragmentShaderInterlock} is supported. */
     public final boolean VK_EXT_fragment_shader_interlock;
+    /** When true, {@link EXTFrameBoundary} is supported. */
+    public final boolean VK_EXT_frame_boundary;
     /** When true, {@link EXTFullScreenExclusive} is supported. */
     public final boolean VK_EXT_full_screen_exclusive;
     /** When true, {@link EXTGlobalPriority} is supported. */
@@ -1054,6 +1077,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_EXT_multisampled_render_to_single_sampled;
     /** When true, {@link EXTMutableDescriptorType} is supported. */
     public final boolean VK_EXT_mutable_descriptor_type;
+    /** When true, {@link EXTNestedCommandBuffer} is supported. */
+    public final boolean VK_EXT_nested_command_buffer;
     /** When true, {@link EXTNonSeamlessCubeMap} is supported. */
     public final boolean VK_EXT_non_seamless_cube_map;
     /** When true, {@link EXTOpacityMicromap} is supported. */
@@ -1170,6 +1195,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_IMG_filter_cubic;
     /** When true, {@link IMGFormatPVRTC} is supported. */
     public final boolean VK_IMG_format_pvrtc;
+    /** When true, {@link IMGRelaxedLineRasterization} is supported. */
+    public final boolean VK_IMG_relaxed_line_rasterization;
     /** When true, {@link INTELPerformanceQuery} is supported. */
     public final boolean VK_INTEL_performance_query;
     /** When true, {@link INTELShaderIntegerFunctions2} is supported. */
@@ -1342,6 +1369,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_KHR_workgroup_memory_explicit_layout;
     /** When true, {@link KHRZeroInitializeWorkgroupMemory} is supported. */
     public final boolean VK_KHR_zero_initialize_workgroup_memory;
+    /** When true, {@link MSFTLayeredDriver} is supported. */
+    public final boolean VK_MSFT_layered_driver;
     /** When true, {@link NVAcquireWinrtDisplay} is supported. */
     public final boolean VK_NV_acquire_winrt_display;
     /** When true, {@link NVClipSpaceWScaling} is supported. */
@@ -1356,10 +1385,14 @@ public class VKCapabilitiesDevice {
     public final boolean VK_NV_corner_sampled_image;
     /** When true, {@link NVCoverageReductionMode} is supported. */
     public final boolean VK_NV_coverage_reduction_mode;
+    /** When true, {@link NVCudaKernelLaunch} is supported. */
+    public final boolean VK_NV_cuda_kernel_launch;
     /** When true, {@link NVDedicatedAllocation} is supported. */
     public final boolean VK_NV_dedicated_allocation;
     /** When true, {@link NVDedicatedAllocationImageAliasing} is supported. */
     public final boolean VK_NV_dedicated_allocation_image_aliasing;
+    /** When true, {@link NVDescriptorPoolOverallocation} is supported. */
+    public final boolean VK_NV_descriptor_pool_overallocation;
     /** When true, {@link NVDeviceDiagnosticCheckpoints} is supported. */
     public final boolean VK_NV_device_diagnostic_checkpoints;
     /** When true, {@link NVDeviceDiagnosticsConfig} is supported. */
@@ -1370,6 +1403,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_NV_device_generated_commands_compute;
     /** When true, {@link NVDisplacementMicromap} is supported. */
     public final boolean VK_NV_displacement_micromap;
+    /** When true, {@link NVExtendedSparseAddressSpace} is supported. */
+    public final boolean VK_NV_extended_sparse_address_space;
     /** When true, {@link NVExternalMemory} is supported. */
     public final boolean VK_NV_external_memory;
     /** When true, {@link NVExternalMemoryRdma} is supported. */
@@ -1396,6 +1431,8 @@ public class VKCapabilitiesDevice {
     public final boolean VK_NV_linear_color_attachment;
     /** When true, {@link NVLowLatency} is supported. */
     public final boolean VK_NV_low_latency;
+    /** When true, {@link NVLowLatency2} is supported. */
+    public final boolean VK_NV_low_latency2;
     /** When true, {@link NVMemoryDecompression} is supported. */
     public final boolean VK_NV_memory_decompression;
     /** When true, {@link NVMeshShader} is supported. */
@@ -1476,7 +1513,7 @@ public class VKCapabilitiesDevice {
     VKCapabilitiesDevice(FunctionProvider provider, VKCapabilitiesInstance capsInstance, int apiVersion, Set<String> ext) {
         this.apiVersion = apiVersion;
 
-        long[] caps = new long[532];
+        long[] caps = new long[543];
 
         Vulkan10 = check_VK10(provider, caps, ext);
         Vulkan11 = check_VK11(provider, caps, ext);
@@ -1505,8 +1542,10 @@ public class VKCapabilitiesDevice {
         VK_AMD_shader_trinary_minmax = ext.contains("VK_AMD_shader_trinary_minmax");
         VK_AMD_texture_gather_bias_lod = ext.contains("VK_AMD_texture_gather_bias_lod");
         VK_AMDX_shader_enqueue = check_AMDX_shader_enqueue(provider, caps, ext);
+        VK_ANDROID_external_format_resolve = ext.contains("VK_ANDROID_external_format_resolve");
         VK_ANDROID_external_memory_android_hardware_buffer = check_ANDROID_external_memory_android_hardware_buffer(provider, caps, ext);
         VK_ARM_rasterization_order_attachment_access = ext.contains("VK_ARM_rasterization_order_attachment_access");
+        VK_ARM_scheduling_controls = ext.contains("VK_ARM_scheduling_controls");
         VK_ARM_shader_core_builtins = ext.contains("VK_ARM_shader_core_builtins");
         VK_ARM_shader_core_properties = ext.contains("VK_ARM_shader_core_properties");
         VK_EXT_4444_formats = ext.contains("VK_EXT_4444_formats");
@@ -1545,6 +1584,7 @@ public class VKCapabilitiesDevice {
         VK_EXT_fragment_density_map = ext.contains("VK_EXT_fragment_density_map");
         VK_EXT_fragment_density_map2 = ext.contains("VK_EXT_fragment_density_map2");
         VK_EXT_fragment_shader_interlock = ext.contains("VK_EXT_fragment_shader_interlock");
+        VK_EXT_frame_boundary = ext.contains("VK_EXT_frame_boundary");
         VK_EXT_full_screen_exclusive = check_EXT_full_screen_exclusive(provider, caps, ext);
         VK_EXT_global_priority = ext.contains("VK_EXT_global_priority");
         VK_EXT_global_priority_query = ext.contains("VK_EXT_global_priority_query");
@@ -1571,6 +1611,7 @@ public class VKCapabilitiesDevice {
         VK_EXT_multi_draw = check_EXT_multi_draw(provider, caps, ext);
         VK_EXT_multisampled_render_to_single_sampled = ext.contains("VK_EXT_multisampled_render_to_single_sampled");
         VK_EXT_mutable_descriptor_type = ext.contains("VK_EXT_mutable_descriptor_type");
+        VK_EXT_nested_command_buffer = ext.contains("VK_EXT_nested_command_buffer");
         VK_EXT_non_seamless_cube_map = ext.contains("VK_EXT_non_seamless_cube_map");
         VK_EXT_opacity_micromap = check_EXT_opacity_micromap(provider, caps, ext);
         VK_EXT_pageable_device_local_memory = check_EXT_pageable_device_local_memory(provider, caps, ext);
@@ -1629,6 +1670,7 @@ public class VKCapabilitiesDevice {
         VK_HUAWEI_subpass_shading = check_HUAWEI_subpass_shading(provider, caps, ext);
         VK_IMG_filter_cubic = ext.contains("VK_IMG_filter_cubic");
         VK_IMG_format_pvrtc = ext.contains("VK_IMG_format_pvrtc");
+        VK_IMG_relaxed_line_rasterization = ext.contains("VK_IMG_relaxed_line_rasterization");
         VK_INTEL_performance_query = check_INTEL_performance_query(provider, caps, ext);
         VK_INTEL_shader_integer_functions2 = ext.contains("VK_INTEL_shader_integer_functions2");
         VK_KHR_16bit_storage = ext.contains("VK_KHR_16bit_storage");
@@ -1715,6 +1757,7 @@ public class VKCapabilitiesDevice {
         VK_KHR_win32_keyed_mutex = ext.contains("VK_KHR_win32_keyed_mutex");
         VK_KHR_workgroup_memory_explicit_layout = ext.contains("VK_KHR_workgroup_memory_explicit_layout");
         VK_KHR_zero_initialize_workgroup_memory = ext.contains("VK_KHR_zero_initialize_workgroup_memory");
+        VK_MSFT_layered_driver = ext.contains("VK_MSFT_layered_driver");
         VK_NV_acquire_winrt_display = ext.contains("VK_NV_acquire_winrt_display");
         VK_NV_clip_space_w_scaling = check_NV_clip_space_w_scaling(provider, caps, ext);
         VK_NV_compute_shader_derivatives = ext.contains("VK_NV_compute_shader_derivatives");
@@ -1722,13 +1765,16 @@ public class VKCapabilitiesDevice {
         VK_NV_copy_memory_indirect = check_NV_copy_memory_indirect(provider, caps, ext);
         VK_NV_corner_sampled_image = ext.contains("VK_NV_corner_sampled_image");
         VK_NV_coverage_reduction_mode = ext.contains("VK_NV_coverage_reduction_mode");
+        VK_NV_cuda_kernel_launch = check_NV_cuda_kernel_launch(provider, caps, ext);
         VK_NV_dedicated_allocation = ext.contains("VK_NV_dedicated_allocation");
         VK_NV_dedicated_allocation_image_aliasing = ext.contains("VK_NV_dedicated_allocation_image_aliasing");
+        VK_NV_descriptor_pool_overallocation = ext.contains("VK_NV_descriptor_pool_overallocation");
         VK_NV_device_diagnostic_checkpoints = check_NV_device_diagnostic_checkpoints(provider, caps, ext);
         VK_NV_device_diagnostics_config = ext.contains("VK_NV_device_diagnostics_config");
         VK_NV_device_generated_commands = check_NV_device_generated_commands(provider, caps, ext);
         VK_NV_device_generated_commands_compute = check_NV_device_generated_commands_compute(provider, caps, ext);
         VK_NV_displacement_micromap = ext.contains("VK_NV_displacement_micromap");
+        VK_NV_extended_sparse_address_space = ext.contains("VK_NV_extended_sparse_address_space");
         VK_NV_external_memory = ext.contains("VK_NV_external_memory");
         VK_NV_external_memory_rdma = check_NV_external_memory_rdma(provider, caps, ext);
         VK_NV_external_memory_win32 = check_NV_external_memory_win32(provider, caps, ext);
@@ -1742,6 +1788,7 @@ public class VKCapabilitiesDevice {
         VK_NV_inherited_viewport_scissor = ext.contains("VK_NV_inherited_viewport_scissor");
         VK_NV_linear_color_attachment = ext.contains("VK_NV_linear_color_attachment");
         VK_NV_low_latency = ext.contains("VK_NV_low_latency");
+        VK_NV_low_latency2 = check_NV_low_latency2(provider, caps, ext);
         VK_NV_memory_decompression = check_NV_memory_decompression(provider, caps, ext);
         VK_NV_mesh_shader = check_NV_mesh_shader(provider, caps, ext);
         VK_NV_optical_flow = check_NV_optical_flow(provider, caps, ext);
@@ -2262,57 +2309,68 @@ public class VKCapabilitiesDevice {
         vkCmdSetViewportWScalingNV = caps[478];
         vkCmdCopyMemoryIndirectNV = caps[479];
         vkCmdCopyMemoryToImageIndirectNV = caps[480];
-        vkCmdSetCheckpointNV = caps[481];
-        vkGetQueueCheckpointDataNV = caps[482];
-        vkGetGeneratedCommandsMemoryRequirementsNV = caps[483];
-        vkCmdPreprocessGeneratedCommandsNV = caps[484];
-        vkCmdExecuteGeneratedCommandsNV = caps[485];
-        vkCmdBindPipelineShaderGroupNV = caps[486];
-        vkCreateIndirectCommandsLayoutNV = caps[487];
-        vkDestroyIndirectCommandsLayoutNV = caps[488];
-        vkGetPipelineIndirectMemoryRequirementsNV = caps[489];
-        vkCmdUpdatePipelineIndirectBufferNV = caps[490];
-        vkGetPipelineIndirectDeviceAddressNV = caps[491];
-        vkGetMemoryRemoteAddressNV = caps[492];
-        vkGetMemoryWin32HandleNV = caps[493];
-        vkCmdSetFragmentShadingRateEnumNV = caps[494];
-        vkCmdDecompressMemoryNV = caps[495];
-        vkCmdDecompressMemoryIndirectCountNV = caps[496];
-        vkCmdDrawMeshTasksNV = caps[497];
-        vkCmdDrawMeshTasksIndirectNV = caps[498];
-        vkCmdDrawMeshTasksIndirectCountNV = caps[499];
-        vkCreateOpticalFlowSessionNV = caps[500];
-        vkDestroyOpticalFlowSessionNV = caps[501];
-        vkBindOpticalFlowSessionImageNV = caps[502];
-        vkCmdOpticalFlowExecuteNV = caps[503];
-        vkCreateAccelerationStructureNV = caps[504];
-        vkDestroyAccelerationStructureNV = caps[505];
-        vkGetAccelerationStructureMemoryRequirementsNV = caps[506];
-        vkBindAccelerationStructureMemoryNV = caps[507];
-        vkCmdBuildAccelerationStructureNV = caps[508];
-        vkCmdCopyAccelerationStructureNV = caps[509];
-        vkCmdTraceRaysNV = caps[510];
-        vkCreateRayTracingPipelinesNV = caps[511];
-        vkGetRayTracingShaderGroupHandlesNV = caps[512];
-        vkGetAccelerationStructureHandleNV = caps[513];
-        vkCmdWriteAccelerationStructuresPropertiesNV = caps[514];
-        vkCompileDeferredNV = caps[515];
-        vkCmdSetExclusiveScissorEnableNV = caps[516];
-        vkCmdSetExclusiveScissorNV = caps[517];
-        vkCmdBindShadingRateImageNV = caps[518];
-        vkCmdSetViewportShadingRatePaletteNV = caps[519];
-        vkCmdSetCoarseSampleOrderNV = caps[520];
-        vkCreateCuModuleNVX = caps[521];
-        vkCreateCuFunctionNVX = caps[522];
-        vkDestroyCuModuleNVX = caps[523];
-        vkDestroyCuFunctionNVX = caps[524];
-        vkCmdCuLaunchKernelNVX = caps[525];
-        vkGetImageViewHandleNVX = caps[526];
-        vkGetImageViewAddressNVX = caps[527];
-        vkGetFramebufferTilePropertiesQCOM = caps[528];
-        vkGetDynamicRenderingTilePropertiesQCOM = caps[529];
-        vkGetDescriptorSetLayoutHostMappingInfoVALVE = caps[530];
-        vkGetDescriptorSetHostMappingVALVE = caps[531];
+        vkCreateCudaModuleNV = caps[481];
+        vkGetCudaModuleCacheNV = caps[482];
+        vkCreateCudaFunctionNV = caps[483];
+        vkDestroyCudaModuleNV = caps[484];
+        vkDestroyCudaFunctionNV = caps[485];
+        vkCmdCudaLaunchKernelNV = caps[486];
+        vkCmdSetCheckpointNV = caps[487];
+        vkGetQueueCheckpointDataNV = caps[488];
+        vkGetGeneratedCommandsMemoryRequirementsNV = caps[489];
+        vkCmdPreprocessGeneratedCommandsNV = caps[490];
+        vkCmdExecuteGeneratedCommandsNV = caps[491];
+        vkCmdBindPipelineShaderGroupNV = caps[492];
+        vkCreateIndirectCommandsLayoutNV = caps[493];
+        vkDestroyIndirectCommandsLayoutNV = caps[494];
+        vkGetPipelineIndirectMemoryRequirementsNV = caps[495];
+        vkCmdUpdatePipelineIndirectBufferNV = caps[496];
+        vkGetPipelineIndirectDeviceAddressNV = caps[497];
+        vkGetMemoryRemoteAddressNV = caps[498];
+        vkGetMemoryWin32HandleNV = caps[499];
+        vkCmdSetFragmentShadingRateEnumNV = caps[500];
+        vkSetLatencySleepModeNV = caps[501];
+        vkLatencySleepNV = caps[502];
+        vkSetLatencyMarkerNV = caps[503];
+        vkGetLatencyTimingsNV = caps[504];
+        vkQueueNotifyOutOfBandNV = caps[505];
+        vkCmdDecompressMemoryNV = caps[506];
+        vkCmdDecompressMemoryIndirectCountNV = caps[507];
+        vkCmdDrawMeshTasksNV = caps[508];
+        vkCmdDrawMeshTasksIndirectNV = caps[509];
+        vkCmdDrawMeshTasksIndirectCountNV = caps[510];
+        vkCreateOpticalFlowSessionNV = caps[511];
+        vkDestroyOpticalFlowSessionNV = caps[512];
+        vkBindOpticalFlowSessionImageNV = caps[513];
+        vkCmdOpticalFlowExecuteNV = caps[514];
+        vkCreateAccelerationStructureNV = caps[515];
+        vkDestroyAccelerationStructureNV = caps[516];
+        vkGetAccelerationStructureMemoryRequirementsNV = caps[517];
+        vkBindAccelerationStructureMemoryNV = caps[518];
+        vkCmdBuildAccelerationStructureNV = caps[519];
+        vkCmdCopyAccelerationStructureNV = caps[520];
+        vkCmdTraceRaysNV = caps[521];
+        vkCreateRayTracingPipelinesNV = caps[522];
+        vkGetRayTracingShaderGroupHandlesNV = caps[523];
+        vkGetAccelerationStructureHandleNV = caps[524];
+        vkCmdWriteAccelerationStructuresPropertiesNV = caps[525];
+        vkCompileDeferredNV = caps[526];
+        vkCmdSetExclusiveScissorEnableNV = caps[527];
+        vkCmdSetExclusiveScissorNV = caps[528];
+        vkCmdBindShadingRateImageNV = caps[529];
+        vkCmdSetViewportShadingRatePaletteNV = caps[530];
+        vkCmdSetCoarseSampleOrderNV = caps[531];
+        vkCreateCuModuleNVX = caps[532];
+        vkCreateCuFunctionNVX = caps[533];
+        vkDestroyCuModuleNVX = caps[534];
+        vkDestroyCuFunctionNVX = caps[535];
+        vkCmdCuLaunchKernelNVX = caps[536];
+        vkGetImageViewHandleNVX = caps[537];
+        vkGetImageViewAddressNVX = caps[538];
+        vkGetFramebufferTilePropertiesQCOM = caps[539];
+        vkGetDynamicRenderingTilePropertiesQCOM = caps[540];
+        vkGetDescriptorSetLayoutHostMappingInfoVALVE = caps[541];
+        vkGetDescriptorSetHostMappingVALVE = caps[542];
     }
 
     private static boolean check_VK10(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3526,13 +3584,26 @@ public class VKCapabilitiesDevice {
         ) || reportMissing("VK", "VK_NV_copy_memory_indirect");
     }
 
+    private static boolean check_NV_cuda_kernel_launch(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_cuda_kernel_launch")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            481, 482, 483, 484, 485, 486
+        },
+            "vkCreateCudaModuleNV", "vkGetCudaModuleCacheNV", "vkCreateCudaFunctionNV", "vkDestroyCudaModuleNV", "vkDestroyCudaFunctionNV", 
+            "vkCmdCudaLaunchKernelNV"
+        ) || reportMissing("VK", "VK_NV_cuda_kernel_launch");
+    }
+
     private static boolean check_NV_device_diagnostic_checkpoints(FunctionProvider provider, long[] caps, Set<String> ext) {
         if (!ext.contains("VK_NV_device_diagnostic_checkpoints")) {
             return false;
         }
 
         return checkFunctions(provider, caps, new int[] {
-            481, 482
+            487, 488
         },
             "vkCmdSetCheckpointNV", "vkGetQueueCheckpointDataNV"
         ) || reportMissing("VK", "VK_NV_device_diagnostic_checkpoints");
@@ -3544,7 +3615,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            483, 484, 485, 486, 487, 488
+            489, 490, 491, 492, 493, 494
         },
             "vkGetGeneratedCommandsMemoryRequirementsNV", "vkCmdPreprocessGeneratedCommandsNV", "vkCmdExecuteGeneratedCommandsNV", 
             "vkCmdBindPipelineShaderGroupNV", "vkCreateIndirectCommandsLayoutNV", "vkDestroyIndirectCommandsLayoutNV"
@@ -3557,7 +3628,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            489, 490, 491
+            495, 496, 497
         },
             "vkGetPipelineIndirectMemoryRequirementsNV", "vkCmdUpdatePipelineIndirectBufferNV", "vkGetPipelineIndirectDeviceAddressNV"
         ) || reportMissing("VK", "VK_NV_device_generated_commands_compute");
@@ -3569,7 +3640,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            492
+            498
         },
             "vkGetMemoryRemoteAddressNV"
         ) || reportMissing("VK", "VK_NV_external_memory_rdma");
@@ -3581,7 +3652,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            493
+            499
         },
             "vkGetMemoryWin32HandleNV"
         ) || reportMissing("VK", "VK_NV_external_memory_win32");
@@ -3593,10 +3664,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            494
+            500
         },
             "vkCmdSetFragmentShadingRateEnumNV"
         ) || reportMissing("VK", "VK_NV_fragment_shading_rate_enums");
+    }
+
+    private static boolean check_NV_low_latency2(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_low_latency2")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            501, 502, 503, 504, 505
+        },
+            "vkSetLatencySleepModeNV", "vkLatencySleepNV", "vkSetLatencyMarkerNV", "vkGetLatencyTimingsNV", "vkQueueNotifyOutOfBandNV"
+        ) || reportMissing("VK", "VK_NV_low_latency2");
     }
 
     private static boolean check_NV_memory_decompression(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3605,7 +3688,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            495, 496
+            506, 507
         },
             "vkCmdDecompressMemoryNV", "vkCmdDecompressMemoryIndirectCountNV"
         ) || reportMissing("VK", "VK_NV_memory_decompression");
@@ -3617,7 +3700,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            497, 498, 499
+            508, 509, 510
         },
             "vkCmdDrawMeshTasksNV", "vkCmdDrawMeshTasksIndirectNV", "vkCmdDrawMeshTasksIndirectCountNV"
         ) || reportMissing("VK", "VK_NV_mesh_shader");
@@ -3629,7 +3712,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            500, 501, 502, 503
+            511, 512, 513, 514
         },
             "vkCreateOpticalFlowSessionNV", "vkDestroyOpticalFlowSessionNV", "vkBindOpticalFlowSessionImageNV", "vkCmdOpticalFlowExecuteNV"
         ) || reportMissing("VK", "VK_NV_optical_flow");
@@ -3641,7 +3724,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515
+            515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526
         },
             "vkCreateAccelerationStructureNV", "vkDestroyAccelerationStructureNV", "vkGetAccelerationStructureMemoryRequirementsNV", 
             "vkBindAccelerationStructureMemoryNV", "vkCmdBuildAccelerationStructureNV", "vkCmdCopyAccelerationStructureNV", "vkCmdTraceRaysNV", 
@@ -3656,7 +3739,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            516, 517
+            527, 528
         },
             "vkCmdSetExclusiveScissorEnableNV", "vkCmdSetExclusiveScissorNV"
         ) || reportMissing("VK", "VK_NV_scissor_exclusive");
@@ -3668,7 +3751,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            518, 519, 520
+            529, 530, 531
         },
             "vkCmdBindShadingRateImageNV", "vkCmdSetViewportShadingRatePaletteNV", "vkCmdSetCoarseSampleOrderNV"
         ) || reportMissing("VK", "VK_NV_shading_rate_image");
@@ -3680,7 +3763,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            521, 522, 523, 524, 525
+            532, 533, 534, 535, 536
         },
             "vkCreateCuModuleNVX", "vkCreateCuFunctionNVX", "vkDestroyCuModuleNVX", "vkDestroyCuFunctionNVX", "vkCmdCuLaunchKernelNVX"
         ) || reportMissing("VK", "VK_NVX_binary_import");
@@ -3692,7 +3775,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            526, 527
+            537, 538
         },
             "vkGetImageViewHandleNVX", "vkGetImageViewAddressNVX"
         ) || reportMissing("VK", "VK_NVX_image_view_handle");
@@ -3704,7 +3787,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            528, 529
+            539, 540
         },
             "vkGetFramebufferTilePropertiesQCOM", "vkGetDynamicRenderingTilePropertiesQCOM"
         ) || reportMissing("VK", "VK_QCOM_tile_properties");
@@ -3716,7 +3799,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            530, 531
+            541, 542
         },
             "vkGetDescriptorSetLayoutHostMappingInfoVALVE", "vkGetDescriptorSetHostMappingVALVE"
         ) || reportMissing("VK", "VK_VALVE_descriptor_set_host_mapping");

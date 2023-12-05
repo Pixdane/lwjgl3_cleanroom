@@ -141,7 +141,7 @@
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>
                 <arg value="-I${src.main.rel}/libffi/arm" if:set="build.arch.arm32"/>
-                <arg value="-I${src.main.rel}/libffi/x86" unless:set="build.arch.arm"/>
+                <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <!-- for libffi/x86/ffitarget.h -->
                 <arg value="-DX86_64" if:set="build.arch.x64"/>
                 <fileset dir=".">
@@ -202,7 +202,7 @@
         </sequential>
 
         <!-- meshoptimizer -->
-        <build module="meshoptimizer" simple="true" linker="clang++" if:true="${binding.meshoptimizer}">
+        <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
                 <compile lang="c++" flags="-DMESHOPTIMIZER_NO_WRAPPERS">
                     <arg value="-I${src.main.rel}"/>
