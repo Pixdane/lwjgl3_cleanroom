@@ -101,5 +101,3 @@ jobs:
         run: ./org.lwjgl.demo.util.lz4.hellolz4
         if: matrix.ARCH == 'x64'
 
-
-        if: matrix.ARCH == 'x64'
